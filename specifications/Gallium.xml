@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <signatures>
   <comments>
     <license>
@@ -172,6 +172,14 @@
       <param name="capacity" type="GAUInt32" />
       <param name="typeFlags" type="BufferType *" />
       <returns type="GAUInt32" />
+    </function>
+    <function name="GAUpdateBuffer" extension="Core" vendor="ULTZ">
+      <doc></doc> 
+      <param name="buffer" type="GAUInt32" />
+      <param name="bufferOffset" type="GAUInt32" />
+      <param name="source" type="GAIntPtr" />
+      <param name="size" type="GAUInt32" />
+      <returns type="void" />
     </function>
     <function name="GADestroyBuffer" extension="Core" vendor="ULTZ">
       <doc></doc> 
