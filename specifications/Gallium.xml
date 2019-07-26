@@ -64,21 +64,47 @@
   <api name="gallium" version="1.0">
     <!-- Diagnostics -->
     <enum name="ErrorType" extension="Core" vendor="ULTZ">
-      <token name="GA_NONE" value="0x0000" />
-      <token name="GA_INVALID_ENUM_PARAMETER" value="0x0001" />
-      <token name="GA_INVALID_VALUE_PARAMETER" value="0x0002" />
-      <token name="GA_INVALID_OPERATION" value="0x0003" />
-      <token name="GA_STACK_OVERFLOW" value="0x0004" />
-      <token name="GA_STACK_UNDERFLOW" value="0x0005" />
-      <token name="GA_OUT_OF_MEMORY" value="0x0006" />
-      <token name="GA_NOT_IMPLEMENTED" value="0x0007" />
-      <token name="GA_UNKNOWN_ERROR" value="0x0008" />
+      <token name="GA_NONE" value="0x0000">
+        <doc>The last operation was successful</doc>
+      </token>
+      <token name="GA_INVALID_ENUM_PARAMETER" value="0x0001">
+        <doc>An invalid enumerant was passed to a parameter.</doc>
+      </token>
+      <token name="GA_INVALID_VALUE_PARAMETER" value="0x0002">
+        <doc>An invalid value was passed to a parameter.</doc>
+      </token>
+      <token name="GA_INVALID_OPERATION" value="0x0003">
+        <doc>An unsupported/invalid operation was attempted.</doc>
+      </token>
+      <token name="GA_STACK_OVERFLOW" value="0x0004">
+        <doc>An attempt was made to push a value onto a full stack.</doc>
+      </token>
+      <token name="GA_STACK_UNDERFLOW" value="0x0005">
+        <doc>An attempt was made to pop a value from an empty stack.</doc>
+      </token>
+      <token name="GA_OUT_OF_MEMORY" value="0x0006">
+        <doc>There wasn't enough memory free to execute the command.</doc>
+      </token>
+      <token name="GA_NOT_IMPLEMENTED" value="0x0007">
+        <doc>The driver has not implemented this function.</doc>
+      </token>
+      <token name="GA_UNKNOWN_ERROR" value="0x0008">
+        <doc>An anomalous error occured. This usually indicates a bug in the driver.</doc>
+      </token>
     </enum>
     <enum name="DebugMessageType" extension="Core" vendor="ULTZ">
-      <token name="GA_MESSAGE" value="0x0000" />
-      <token name="GA_VERBOSE_MESSAGE" value="0x0001" />
-      <token name="GA_WARNING" value="0x0002" />
-      <token name="GA_ERROR" value="0x0003" />
+      <token name="GA_MESSAGE" value="0x0000">
+        <doc>Indicates that the debug message is not for an error, but for additional information the developer might need to be aware of.</doc>
+      </token>
+      <token name="GA_VERBOSE_MESSAGE" value="0x0001">
+        <doc>Indicates that the debug message is not for an error, but for additional information the developer might need to be aware of when debugging.</doc>
+      </token>
+      <token name="GA_WARNING" value="0x0002">
+        <doc>Indicates that the debug message is warning the developer.</doc>
+      </token>
+      <token name="GA_ERROR" value="0x0003">
+        <doc>Indicates that the debug message is for an error.</doc>
+      </token>
     </enum>
     <function name="GAGetError" extension="Core" vendor="ULTZ">
       <doc>Gets the result of the previous command.</doc> 
@@ -114,15 +140,33 @@
 
     <!-- Underlying API management -->
     <enum name="UnderlyingAPI" extension="Core" vendor="ULTZ">
-      <token name="GA_OTHER" value="0x0000" />
-      <token name="GA_NONE" value="0x0001" />
-      <token name="GA_METAL" value="0x0002" />
-      <token name="GA_DIRECTX" value="0x0003" />
-      <token name="GA_OPENGL" value="0x0004" />
-      <token name="GA_OPENGLES" value="0x0005" />
-      <token name="GA_VULKAN" value="0x0006" />
-      <token name="GA_GNM" value="0x0007" />
-      <token name="GA_NVN" value="0x0008" />
+      <token name="GA_OTHER" value="0x0000">
+        <doc>The API backing Gallium isn't documented as an enum.</doc>
+      </token>
+      <token name="GA_NONE" value="0x0001">
+        <doc>The API directly accesses the GPU via a specialized driver, and not through another API.</doc>
+      </token>
+      <token name="GA_METAL" value="0x0002">
+        <doc>The API is being powered by the Metal API on iOS or macOS.</doc>
+      </token>
+      <token name="GA_DIRECTX" value="0x0003">
+        <doc>The API is being powered by the DirectX API on a Microsoft platform.</doc>
+      </token>
+      <token name="GA_OPENGL" value="0x0004">
+        <doc>The API is being powered by the OpenGL API on a desktop platform.</doc>
+      </token>
+      <token name="GA_OPENGLES" value="0x0005">
+        <doc>The API is being powered by the OpenGL API on an embedded system.</doc>
+      </token>
+      <token name="GA_VULKAN" value="0x0006">
+        <doc>The API is being powered by the Vulkan API.</doc>
+      </token>
+      <token name="GA_GNM" value="0x0007">
+        <doc>The API is being powered by the GNM API on PlayStation 4.</doc>
+      </token>
+      <token name="GA_NVN" value="0x0008">
+        <doc>The API is being powered by the NVN API on Nintendo Switch.</doc>
+      </token>
     </enum>
     <function name="GAGetUnderlyingAPI" extension="Core" vendor="ULTZ">
       <doc></doc> 
