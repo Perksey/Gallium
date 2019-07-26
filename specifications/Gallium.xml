@@ -34,6 +34,12 @@
       attribute. An example could be GA_ULTZ_extension_name. The vendor which added
       the extension to the Gallium specification is defined in its vendor attribute.
       In the case of GA_ULTZ_extension_name, the vendor will just be ULTZ.
+
+      Currently, the only vendor is ULTZ, who make the following drivers:
+      - Gallium -> DirectX
+      - Gallium -> Vulkan
+      - Gallium -> OpenGL(ES)
+      - Gallium -> Metal
     </description>
   </comments>
   <types>
@@ -46,6 +52,7 @@
       <type name="GAUInt64" comment="A 64-bit unsigned integer." />
       <type name="GADebugProc" comment="A function pointer to a debug callback." />
       <type name="GAChar" comment="A character." />
+      <type name="GAByte" comment="A byte." />
       <!--
       
        GADebugProc signature:
@@ -85,18 +92,22 @@
     <!-- Commands and Batches -->
     <function name="GABeginBatch" extension="Core" vendor="ULTZ">
       <doc>Prepares a new command batch in which subsequent commands will be captured and stored.</doc> 
-      <returns type="void" />
+      <returns type="GAUInt32" />
     </function>
     <function name="GAFinishBatch" extension="Core" vendor="ULTZ">
-      <doc>Finishes the current command batch, and translates the commands to the underlying API.</doc> 
+      <doc>Finishes the command batch, and adds it to the underlying API's queue.</doc> 
+      <param name="batch" type="GAUInt32" />
       <returns type="void" />
     </function>
     <function name="GADestroyBatch" extension="Core" vendor="ULTZ">
       <doc>Destroys the current batch, including the commands captured within it.</doc> 
+      <param name="batch" type="GAUInt32" />
       <returns type="void" />
     </function>
     <function name="GASendCommands" extension="Core" vendor="ULTZ">
-      <doc>Sends all of the pending batches to the underlying API. This is separate to GAFinishBatch to circumvent any threading requirements the underlying API might have. For example, this must only be called on the thread where an OpenGL context is current (in the case of OpenGL being the underlying API)</doc> 
+      <doc>Sends all of the pending batches to the underlying API. This is separate to GAFinishBatch to circumvent any threading requirements the underlying API might have. For example, this must only be called on the thread where an OpenGL context is current (in the case of OpenGL being the underlying API)</doc>
+      <param name="batchCount" type="GAUInt32" />
+      <param name="batches" type="GAUInt32 *" count="valueof(batchCount)" flow="in" />
       <returns type="void" />
     </function>
 
@@ -113,6 +124,19 @@
       <doc></doc> 
       <returns type="UnderlyingAPI" />
     </function>
-    <!-- TODO add functions for setting up the underlying context, such as DirectX and its HWNDs -->
+    <!-- TODO add extensions for setting up the underlying context, such as DirectX and its HWNDs -->
+
+    <!-- SPIR-V -->
+    <function name="GACompileShader" extension="Core" vendor="ULTZ">
+      <doc></doc> 
+      <returns type="GAUInt32" />
+      <param name="length" type="GAUInt32" />
+      <param name="bytes" type="GAByte *" count="valueof(length)" flow="in" />
+    </function>
+    <function name="GADestroyShader" extension="Core" vendor="ULTZ">
+      <doc></doc> 
+      <param name="shader" type="GAUint32" />
+      <returns type="void" />
+    </function>
   </api>
 </signatures>
