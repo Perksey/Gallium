@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <signatures>
   <comments>
     <license>
@@ -152,6 +152,29 @@
       <doc></doc> 
       <param name="name" type="GAChar *" />
       <returns type="GABool" />
+    </function>
+
+    <!-- Buffers -->
+    <enum name="BufferType" extension="Core" vendor="ULTZ">
+      <token name="GA_DYNAMIC" value="0x0000" />
+      <token name="GA_INDEX_BUFFER" value="0x0001" />
+      <token name="GA_INDIRECT_BUFFER" value="0x0002" />
+      <token name="GA_STAGING" value="0x0003" />
+      <token name="GA_STRUCTURED_BUFFER_READ_ONLY" value="0x0004" />
+      <token name="GA_STRUCTURED_BUFFER" value="0x0005" />
+      <token name="GA_UNIFORM_BUFFER" value="0x0006" />
+      <token name="GA_VERTEX_BUFFER" value="0x0007" />
+    </enum>
+    <function name="GACreateBuffer" extension="Core" vendor="ULTZ">
+      <doc></doc> 
+      <param name="capacity" type="GAUInt32" />
+      <param name="typeFlags" type="BufferType *" />
+      <returns type="GAUInt32" />
+    </function>
+    <function name="GADestroyBuffer" extension="Core" vendor="ULTZ">
+      <doc></doc> 
+      <param name="id" type="GAUInt32" />
+      <returns type="void" />
     </function>
   </api>
 </signatures>
