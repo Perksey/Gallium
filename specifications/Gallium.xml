@@ -106,10 +106,9 @@
       <param name="batch" type="GAUInt32" />
       <returns type="void" />
     </function>
-    <function name="GASendCommands" extension="Core" vendor="ULTZ">
-      <doc>Sends all of the pending batches to the underlying API. This is separate to GAFinishBatch to circumvent any threading requirements the underlying API might have. For example, this must only be called on the thread where an OpenGL context is current (in the case of OpenGL being the underlying API)</doc>
-      <param name="batchCount" type="GAUInt32" />
-      <param name="batches" type="GAUInt32 *" count="valueof(batchCount)" flow="in" />
+    <function name="GAExecuteBatch" extension="Core" vendor="ULTZ">
+      <doc>Sends the given batch to the underlying API. This function is separate to GAFinishBatch to circumvent any thread restrictions the underlying API might have. For example, this function must only be called on the thread where the OpenGL context is current where the underlying API is OpenGL or OpenGL ES.</doc>
+      <param name="batch" type="GAUInt32" />
       <returns type="void" />
     </function>
 
