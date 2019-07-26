@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <signatures>
   <comments>
     <license>
@@ -82,6 +82,7 @@
     </enum>
     <function name="GAGetError" extension="Core" vendor="ULTZ">
       <doc>Gets the result of the previous command.</doc> 
+      <param name="additionalMessage" type="GAChar *" flow="out" />
       <returns type="ErrorType" />
     </function>
     <function name="GASetDebugCallback" extension="Core" vendor="ULTZ">
