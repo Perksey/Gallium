@@ -116,11 +116,12 @@
     <!-- Underlying API management -->
     <enum name="UnderlyingAPI" extension="Core" vendor="ULTZ">
       <token name="GA_OTHER" value="0x0000" />
-      <token name="GA_METAL" value="0x0001" />
-      <token name="GA_DIRECTX" value="0x0002" />
-      <token name="GA_OPENGL" value="0x0003" />
-      <token name="GA_OPENGLES" value="0x0004" />
-      <token name="GA_VULKAN" value="0x0005" />
+      <token name="GA_NONE" value="0x0001" />
+      <token name="GA_METAL" value="0x0002" />
+      <token name="GA_DIRECTX" value="0x0003" />
+      <token name="GA_OPENGL" value="0x0004" />
+      <token name="GA_OPENGLES" value="0x0005" />
+      <token name="GA_VULKAN" value="0x0006" />
     </enum>
     <function name="GAGetUnderlyingAPI" extension="Core" vendor="ULTZ">
       <doc></doc> 
