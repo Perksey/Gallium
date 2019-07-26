@@ -185,5 +185,18 @@
       <param name="id" type="GAUInt32" />
       <returns type="void" />
     </function>
+
+    <!-- Features -->
+    <enum name="FeatureName" extension="Core" vendor="ULTZ">
+      <token name="GA_COMPUTE_SHADERS" value="0x0001" />
+      <token name="GA_GEOMETRY_SHADERS" value="0x0002" />
+      <token name="GA_TESSELLATION_SHADERS" value="0x0003" />
+      <token name="GA_MULTIPLE_VIEWPORTS" value="0x0004" />
+    </enum>
+    <function name="GAIsFeatureSupported" extension="Core" vendor="ULTZ">
+      <doc></doc>
+      <param name="feature" type="FeatureName">
+      <returns type="GABool" />
+    </function>
   </api>
 </signatures>
