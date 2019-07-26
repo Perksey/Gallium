@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <signatures>
   <comments>
     <license>
@@ -122,6 +122,8 @@
       <token name="GA_OPENGL" value="0x0004" />
       <token name="GA_OPENGLES" value="0x0005" />
       <token name="GA_VULKAN" value="0x0006" />
+      <token name="GA_GNM" value="0x0007" />
+      <token name="GA_NVN" value="0x0008" />
     </enum>
     <function name="GAGetUnderlyingAPI" extension="Core" vendor="ULTZ">
       <doc></doc> 
