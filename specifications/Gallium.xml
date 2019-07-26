@@ -53,6 +53,7 @@
       <type name="GADebugProc" comment="A function pointer to a debug callback." />
       <type name="GAChar" comment="A character." />
       <type name="GAByte" comment="A byte." />
+      <type name="GABool" comment="A boolean - 0 for false, 1 for true." />
       <!--
       
        GADebugProc signature:
@@ -135,8 +136,20 @@
     </function>
     <function name="GADestroyShader" extension="Core" vendor="ULTZ">
       <doc></doc> 
-      <param name="shader" type="GAUint32" />
+      <param name="shader" type="GAUInt32" />
       <returns type="void" />
+    </function>
+
+    <!-- Loader -->
+    <function name="GAGetProcAddress" extension="Core" vendor="ULTZ">
+      <doc></doc> 
+      <param name="name" type="GAChar *" />
+      <returns type="GAIntPtr" />
+    </function>
+    <function name="GAIsExtensionPresent" extension="Core" vendor="ULTZ">
+      <doc></doc> 
+      <param name="name" type="GAChar *" />
+      <returns type="GABool" />
     </function>
   </api>
 </signatures>
