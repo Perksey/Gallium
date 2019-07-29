@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <signatures>
   <comments>
     <license>
@@ -179,7 +179,7 @@
       <doc></doc> 
       <returns type="GAUInt32" />
       <param name="length" type="GAUInt32" />
-      <param name="bytes" type="GAByte *" count="valueof(length)" flow="in" />
+      <param name="bytes" type="GAByte*" count="Parameter(length)" flow="in" />
     </function>
     <function name="GADestroyShader" extension="Core" vendor="ULTZ">
       <doc></doc> 
@@ -190,12 +190,12 @@
     <!-- Loader -->
     <function name="GAGetProcAddress" extension="Core" vendor="ULTZ">
       <doc></doc> 
-      <param name="name" type="GAChar *" />
+      <param name="name" type="GAChar*" />
       <returns type="GAIntPtr" />
     </function>
     <function name="GAIsExtensionPresent" extension="Core" vendor="ULTZ">
       <doc></doc> 
-      <param name="name" type="GAChar *" />
+      <param name="name" type="GAChar*" />
       <returns type="GABool" />
     </function>
 
@@ -239,8 +239,71 @@
     </enum>
     <function name="GAIsFeatureSupported" extension="Core" vendor="ULTZ">
       <doc></doc>
-      <param name="feature" type="FeatureName">
+      <param name="feature" type="FeatureName" />
       <returns type="GABool" />
+    </function>
+
+    <!-- Blending -->
+    <enum name="BlendFactor" extension="Core" vendor="ULTZ">
+      <token name="GA_BLEND_FACTOR" value="0x0000" />
+      <token name="GA_DESTINATION_ALPHA" value="0x0001" />
+      <token name="GA_DESTINATION_COLOR" value="0x0002" />
+      <token name="GA_SOURCE_ALPHA" value="0x0003" />
+      <token name="GA_SOURCE_COLOR" value="0x0004" />
+      <token name="GA_INVERSE_BLEND_FACTOR" value="0x0005" />
+      <token name="GA_INVERSE_DESTINATION_ALPHA" value="0x0006" />
+      <token name="GA_INVERSE_DESTINATION_COLOR" value="0x0007" />
+      <token name="GA_INVERSE_SOURCE_ALPHA" value="0x0008" />
+      <token name="GA_INVERSE_SOURCE_COLOR" value="0x0009" />
+      <token name="GA_ONE" value="0x000A" />
+      <token name="GA_ZERO" value="0x000B" />
+    </enum>
+
+    <!-- Pipeline Management -->
+    <function name="GASetPipeline" extension="Core" vendor="ULTZ">
+      <doc>Makes the given pipeline current.</doc>
+      <param name="pipeline" type="GAUInt32"/>
+      <returns type="void" />
+    </function>
+    <function name="GAGetPipeline" extension="Core" vendor="ULTZ">
+      <doc>Gets the ID of the current pipeline.</doc>
+      <returns type="GAUInt32" />
+    </function>
+    <function name="GAGetMainPipeline" extension="Core" vendor="ULTZ">
+      <doc>Gets the ID of the main pipeline (will always be zero).</doc>
+      <returns type="GAUInt32" />
+    </function>
+    <function name="GACreatePipeline" extension="Core" vendor="ULTZ">
+      <!-- Blend State -->
+      <param name="blendFactorRGBA" type="GASingle*" count="Value(4)" />
+      <param name="blendDescriptionCount" type="GAUInt32">
+      <param name="blendEnabled" type="GABool*" count="Parameter(blendDescriptionCount)" />
+      <param name="sourceColorFactor" type="BlendFactor*" count="Parameter(blendDescriptionCount)" />
+      <param name="destinationColorFactor" type="BlendFactor*" count="Parameter(blendDescriptionCount)" />
+      <param name="colorFunction" type="BlendFunction*" count="Parameter(blendDescriptionCount)" />
+      <param name="sourceAlphaFactor" type="BlendFactor*" count="Parameter(blendDescriptionCount)" />
+      <param name="destinationAlphaFactor" type="BlendFactor*" count="Parameter(blendDescriptionCount)" />
+      <param name="alphaFunction" type="BlendFunction*" count="Parameter(blendDescriptionCount)" />
+
+      <!-- Depth Stencil -->
+      <param name="depthTestEnabled" type="GABool" />
+      <param name="depthWriteEnabled" type="GABool" />
+      <param name="comparisonKind" type="ComparisonKind" />
+
+      <!-- Raterizer -->
+      <param name="cullMode" type="FaceCullMode" />
+      <param name="fillMode" type="PolygonFillMode" />
+      <param name="frontFace" type="FrontFace" />
+      <param name="depthClipEnabled" type="GABool" />
+      <param name="scissorTestEnabled" type="GABool" />
+
+      <param name="primitiveTopology" type="PrimitiveTopology" />
+
+      <!-- Output Description -->
+      <param name="depthAttachment" type="PixelFormat" nullable="true"/>
+      <param name="colorAttachmentCount" type="GAUInt32"/>
+      <param name="colorAttachments" type="PixelFormat *" count="Parameter(colorAttachmentCount)"/>
+      <returns type="GAUInt32" />
     </function>
   </api>
 </signatures>
