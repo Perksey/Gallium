@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <signatures>
   <comments>
     <license>
@@ -54,6 +54,8 @@
       <type name="GAChar" comment="A character." />
       <type name="GAByte" comment="A byte." />
       <type name="GABool" comment="A boolean - 0 for false, 1 for true." />
+      <type name="GASingle" comment="A single-precision floating-point number." />
+      <type name="GADouble" comment="A double-precision floating-point number." />
       <!--
       
        GADebugProc signature:
@@ -119,17 +121,15 @@
 
     <!-- Commands and Batches -->
     <function name="GABeginBatch" extension="Core" vendor="ULTZ">
-      <doc>Prepares a new command batch in which subsequent commands will be captured and stored.</doc> 
-      <returns type="GAUInt32" />
+      <doc>Prepares a new command batch in which subsequent commands will be captured and stored, and makes the batch current on the calling thread. This must not be called if there is already a batch current on this thread.</doc>
+      <returns type="void" />
     </function>
     <function name="GAFinishBatch" extension="Core" vendor="ULTZ">
-      <doc>Finishes the command batch, and adds it to the underlying API's queue.</doc> 
-      <param name="batch" type="GAUInt32" />
+      <doc>Finishes the command batch, and adds it to the underlying API's queue. The thread will no longer have a current batch.</doc>
       <returns type="void" />
     </function>
     <function name="GADestroyBatch" extension="Core" vendor="ULTZ">
-      <doc>Destroys the current batch, including the commands captured within it.</doc> 
-      <param name="batch" type="GAUInt32" />
+      <doc>Destroys the current batch, including the commands captured within it. The thread will no longer have a current batch.</doc>
       <returns type="void" />
     </function>
     <function name="GAExecuteBatch" extension="Core" vendor="ULTZ">
