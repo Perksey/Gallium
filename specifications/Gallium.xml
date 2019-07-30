@@ -54,8 +54,8 @@
       <type name="GAChar" comment="A character." />
       <type name="GAByte" comment="A byte." />
       <type name="GABool" comment="A boolean - 0 for false, 1 for true." />
-      <type name="GASingle" comment="A single-precision floating-point number." />
-      <type name="GADouble" comment="A double-precision floating-point number." />
+      <type name="GASingle" comment="A single-precision SINGLEing-point number." />
+      <type name="GADouble" comment="A double-precision SINGLEing-point number." />
       <!--
       
        GADebugProc signature:
@@ -243,7 +243,26 @@
       <returns type="GABool" />
     </function>
 
-    <!-- Blending -->
+    <!-- Blending/Stencil/Rasterizer -->
+    <enum name="FaceCullMode" extension="Core" vendor="ULTZ">
+      <token name="GA_NONE" value="0x0000" />
+      <token name="GA_BACK" value="0x0001" />
+      <token name="GA_FRONT" value="0x0002" />
+    </enum>
+    <enum name="ComparisonKind" extension="Core" vendor="ULTZ">
+      <token name="GA_ALWAYS_TRUE" value="0x0000" />
+      <token name="GA_ALWAYS_FALSE" value="0x0001" />
+      <token name="GA_EQUAL" value="0x0002" />
+      <token name="GA_NOT_EQUAL" value="0x0003" />
+      <token name="GA_GREATER_THAN" value="0x0004" />
+      <token name="GA_GREATER_THAN_OR_EQUAL" value="0x0005" />
+      <token name="GA_LESS_THAN" value="0x0006" />
+      <token name="GA_LESS_THAN_OR_EQUAL" value="0x0007" />
+    </enum>
+    <enum name="PolygonFillMode" extension="Core" vendor="ULTZ">
+      <token name="GA_COMPLETE" value="0x0000" />
+      <token name="GA_OUTLINE" value="0x0001" />
+    </enum>
     <enum name="BlendFactor" extension="Core" vendor="ULTZ">
       <token name="GA_BLEND_FACTOR" value="0x0000" />
       <token name="GA_DESTINATION_ALPHA" value="0x0001" />
@@ -257,6 +276,86 @@
       <token name="GA_INVERSE_SOURCE_COLOR" value="0x0009" />
       <token name="GA_ONE" value="0x000A" />
       <token name="GA_ZERO" value="0x000B" />
+    </enum>
+    <enum name="BlendFunction" extension="Core" vendor="ULTZ">
+      <token name="GA_ADD" value="0x0000" />
+      <token name="GA_SUBTRACT" value="0x0001" />
+      <token name="GA_SUBTRACT_REVERSE" value="0x0002" />
+      <token name="GA_MIN" value="0x0003" />
+      <token name="GA_MAX" value="0x0004" />
+    </enum>
+    <enum name="FrontFace" extension="Core" vendor="ULTZ">
+      <token name="GA_CLOCKWISE" value="0x0000" />
+      <token name="GA_ANTICLOCKWISE" value="0x0001" />
+    </enum>
+    <enum name="PrimitiveTopology" extension="Core" vendor="ULTZ">
+      <token name="GA_TRIANGLES" value="0x0000" />
+      <token name="GA_CONNECTED_TRIANGLES" value="0x0001" />
+      <token name="GA_LINES" value="0x0002" />
+      <token name="GA_CONNECTED_LINES" value="0x0003" />
+      <token name="GA_POINTS" value="0x0004" />
+    </enum>
+    <enum name="PixelFormat" extension="Core" vendor="ULTZ">
+        <token name="GA_B8_G8_R8_A8_U_N" value="0x0000" />
+        <token name="GA_R8_U_N" value="0x0000" />
+        <token name="GA_R16_U_N" value="0x0000" />
+        <token name="GA_R32_G32_B32_A32_SINGLE" value="0x0000" />
+        <token name="GA_R32_SINGLE" value="0x0000" />
+        <token name="GA_BC3_U_N" value="0x0000" />
+        <token name="GA_D24_U_N_S8_U" value="0x0000" />
+        <token name="GA_D32_SINGLE_S8_U" value="0x0000" />
+        <token name="GA_R32_G32_B32_A32_U" value="0x0000" />
+        <token name="GA_R8_G8_N" value="0x0000" />
+        <token name="GA_BC1_RGB_U_N" value="0x0000" />
+        <token name="GA_BC1_RGBA_U_N" value="0x0000" />
+        <token name="GA_BC2_U_N" value="0x0000" />
+        <token name="GA_R10_G10_B10_A2_U_N" value="0x0000" />
+        <token name="GA_R10_G10_B10_A2_U" value="0x0000" />
+        <token name="GA_R11_G11_B10_SINGLE" value="0x0000" />
+        <token name="GA_R8_N" value="0x0000" />
+        <token name="GA_R8_U" value="0x0000" />
+        <token name="GA_R8" value="0x0000" />
+        <token name="GA_R16_N" value="0x0000" />
+        <token name="GA_R16_U" value="0x0000" />
+        <token name="GA_R16" value="0x0000" />
+        <token name="GA_R16_SINGLE" value="0x0000" />
+        <token name="GA_R32_U" value="0x0000" />
+        <token name="GA_R32" value="0x0000" />
+        <token name="GA_R8_G8_U_N" value="0x0000" />
+        <token name="GA_R8_G8_U" value="0x0000" />
+        <token name="GA_R8_G8" value="0x0000" />
+        <token name="GA_R16_G16_U_N" value="0x0000" />
+        <token name="GA_R16_G16_N" value="0x0000" />
+        <token name="GA_R16_G16_U" value="0x0000" />
+        <token name="GA_R16_G16" value="0x0000" />
+        <token name="GA_R16_G16_SINGLE" value="0x0000" />
+        <token name="GA_R32_G32_U" value="0x0000" />
+        <token name="GA_R32_G32" value="0x0000" />
+        <token name="GA_R32_G32_SINGLE" value="0x0000" />
+        <token name="GA_R8_G8_B8_A8_N" value="0x0000" />
+        <token name="GA_R8_G8_B8_A8_U" value="0x0000" />
+        <token name="GA_R8_G8_B8_A8" value="0x0000" />
+        <token name="GA_R16_G16_B16_A16_U_N" value="0x0000" />
+        <token name="GA_R16_G16_B16_A16_N" value="0x0000" />
+        <token name="GA_R16_G16_B16_A16_U" value="0x0000" />
+        <token name="GA_R16_G16_B16_A16" value="0x0000" />
+        <token name="GA_R16_G16_B16_A16_SINGLE" value="0x0000" />
+        <token name="GA_R32_G32_B32_A32" value="0x0000" />
+        <token name="GA_ETC2_R8_G8_B8_U_N" value="0x0000" />
+        <token name="GA_ETC2_R8_G8_B8_A1_U_N" value="0x0000" />
+        <token name="GA_ETC2_R8_G8_B8_A8_U_N" value="0x0000" />
+        <token name="GA_BC4_U_N" value="0x0000" />
+        <token name="GA_BC4_N" value="0x0000" />
+        <token name="GA_BC5_U_N" value="0x0000" />
+        <token name="GA_BC5_N" value="0x0000" />
+        <token name="GA_BC7_U_N" value="0x0000" />
+        <token name="GA_R8_G8_B8_A8_U_N_SRGB" value="0x0000" />
+        <token name="GA_B8_G8_R8_A8_U_N_SRGB" value="0x0000" />
+        <token name="GA_BC1_RGB_U_N_SRGB" value="0x0000" />
+        <token name="GA_BC1_RGBA_U_N_SRGB" value="0x0000" />
+        <token name="GA_BC2_U_N_SRGB" value="0x0000" />
+        <token name="GA_BC3_U_N_SRGB" value="0x0000" />
+        <token name="GA_BC7_U_N_SRGB" value="0x0000" />
     </enum>
 
     <!-- Pipeline Management -->
@@ -290,19 +389,18 @@
       <param name="depthWriteEnabled" type="GABool" />
       <param name="comparisonKind" type="ComparisonKind" />
 
-      <!-- Raterizer -->
+      <!-- Rasterizer -->
       <param name="cullMode" type="FaceCullMode" />
       <param name="fillMode" type="PolygonFillMode" />
       <param name="frontFace" type="FrontFace" />
       <param name="depthClipEnabled" type="GABool" />
       <param name="scissorTestEnabled" type="GABool" />
-
       <param name="primitiveTopology" type="PrimitiveTopology" />
 
       <!-- Output Description -->
       <param name="depthAttachment" type="PixelFormat" nullable="true"/>
       <param name="colorAttachmentCount" type="GAUInt32"/>
-      <param name="colorAttachments" type="PixelFormat *" count="Parameter(colorAttachmentCount)"/>
+      <param name="colorAttachments" type="PixelFormat*" count="Parameter(colorAttachmentCount)"/>
       <returns type="GAUInt32" />
     </function>
   </api>
