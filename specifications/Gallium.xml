@@ -54,8 +54,8 @@
       <type name="GAChar" comment="A character." />
       <type name="GAByte" comment="A byte." />
       <type name="GABool" comment="A boolean - 0 for false, 1 for true." />
-      <type name="GASingle" comment="A single-precision SINGLEing-point number." />
-      <type name="GADouble" comment="A double-precision SINGLEing-point number." />
+      <type name="GASingle" comment="A single-precision floating-point number." />
+      <type name="GADouble" comment="A double-precision floating-point number." />
       <!--
       
        GADebugProc signature:
@@ -110,7 +110,7 @@
     </enum>
     <function name="GAGetError" extension="Core" vendor="ULTZ">
       <doc>Gets the result of the previous command.</doc> 
-      <param name="additionalMessage" type="GAChar *" flow="out" />
+      <param name="additionalMessage" type="GAChar*" flow="out" />
       <returns type="ErrorType" />
     </function>
     <function name="GASetDebugCallback" extension="Core" vendor="ULTZ">
@@ -296,6 +296,10 @@
       <token name="GA_POINTS" value="0x0004" />
     </enum>
     <enum name="PixelFormat" extension="Core" vendor="ULTZ">
+        <!-- Suffixes:
+            _N: Normalised
+            _U: Unsigned
+        -->
         <token name="GA_B8_G8_R8_A8_U_N" value="0x0000" />
         <token name="GA_R8_U_N" value="0x0001" />
         <token name="GA_R16_U_N" value="0x0002" />
@@ -402,6 +406,77 @@
       <param name="colorAttachmentCount" type="GAUInt32"/>
       <param name="colorAttachments" type="PixelFormat*" count="Parameter(colorAttachmentCount)"/>
       <returns type="GAUInt32" />
+    </function>
+    <function name="GAPipelineAttach" extension="Core" vendor="ULTZ">
+      <param name="pipeline" type="GAUInt32" />
+      <param name="layoutCount" type="GAUInt32" />
+      <param name="layouts" type="GAUInt32*" />
+      <param name="shaderCount" type="GAUInt32" />
+      <param name="shaders" type="GAUInt32*" />
+      <returns type="GAUInt32" />
+    </function>
+    <function name="GAPipelineDetach" extension="Core" vendor="ULTZ">
+      <param name="attachment" type="GAUInt32" />
+      <returns type="void" />
+    </function>
+
+    <!-- Vertices -->
+    <enum name="VertexElementSemantic" extension="Core" vendor="ULTZ">
+      <token name="GA_COLOR" value="0x0000" />
+      <token name="GA_NORMAL" value="0x0001" />
+      <token name="GA_POSITION" value="0x0002" />
+      <token name="GA_TEX_COORD" value="0x0003" />
+    </enum>
+    <enum name="VertexElementFormat" extension="Core" vendor="ULTZ">
+        <!-- Suffixes:
+            _N: Normalised
+            _U: Unsigned
+        -->
+        <token name="GA_SINGLE_1" value="0x0000" />
+        <token name="GA_SINGLE_2" value="0x0001" />
+        <token name="GA_SINGLE_3" value="0x0002" />
+        <token name="GA_SINGLE_4" value="0x0003" />
+        <token name="GA_BYTE_2_U_N" value="0x0004" />
+        <token name="GA_BYTE_2_U" value="0x0005" />
+        <token name="GA_BYTE_4_U_N" value="0x0006" />
+        <token name="GA_BYTE_4_U" value="0x0007" />
+        <token name="GA_BYTE_2_N" value="0x0008" />
+        <token name="GA_BYTE_2" value="0x0009" />
+        <token name="GA_BYTE_4_N" value="0x000A" />
+        <token name="GA_BYTE_4" value="0x000B" />
+        <token name="GA_INT16_2_U_N" value="0x000C" />
+        <token name="GA_INT16_2_U" value="0x000D" />
+        <token name="GA_INT16_4_U_N" value="0x000E" />
+        <token name="GA_INT16_4_U" value="0x000F" />
+        <token name="GA_INT16_2_N" value="0x0010" />
+        <token name="GA_INT16_2" value="0x0011" />
+        <token name="GA_INT16_4_N" value="0x0012" />
+        <token name="GA_INT16_4" value="0x0013" />
+        <token name="GA_INT32_1_U" value="0x0014" />
+        <token name="GA_INT32_2_U" value="0x0015" />
+        <token name="GA_INT32_3_U" value="0x0016" />
+        <token name="GA_INT32_4_U" value="0x0017" />
+        <token name="GA_INT32_1" value="0x0018" />
+        <token name="GA_INT32_2" value="0x0019" />
+        <token name="GA_INT32_3" value="0x001A" />
+        <token name="GA_INT32_4" value="0x001B" />
+        <token name="GA_HALF_1" value="0x001C" />
+        <token name="GA_HALF_2" value="0x001D" />
+        <token name="GA_HALF_3" value="0x001E" />
+        <token name="GA_HALF_4" value="0x001F" />
+    </enum>
+    <function name="GACreateVertexLayout" extension="Core" vendor="ULTZ">
+      <param name="stride" type="GAUInt32">
+      <param name="instanceStepRate" type="GAUInt32">
+      <param name="elementCount" type="GAUInt32">
+      <param name="elementNames" type="GAChar**" count="Parameter(elementCount)" />
+      <param name="elementSemantics" type="VertexElementSemantic*" count="Parameter(elementCount)" />
+      <param name="elementFormats" type="VertexElementFormat*" count="Parameter(elementCount)" />
+      <returns type="GAUInt32" />
+    </function>
+    <function name="GADestroyVertexLayout" extension="Core" vendor="ULTZ">
+      <param name="layout" type="GAUInt32" />
+      <returns type="void" />
     </function>
   </api>
 </signatures>
