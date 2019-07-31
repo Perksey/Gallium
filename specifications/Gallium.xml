@@ -100,6 +100,9 @@
       <token name="GA_UNKNOWN_ERROR" value="0x0008">
         <doc>An anomalous error occured. This usually indicates a bug in the driver.</doc>
       </token>
+      <token name="GA_NO_BATCH" value="0x0009">
+        <doc>A command that must be sent in a batch was attempted without an active batch.</doc>
+      </token>
     </enum>
     <enum name="DebugMessageType" extension="Core" vendor="ULTZ">
       <token name="GA_MESSAGE" value="0x0000">
@@ -126,22 +129,21 @@
       <returns type="void" />
     </function>
 
-    <!-- Commands and Batches -->
-    <function name="GABeginBatch" extension="Core" vendor="ULTZ">
-      <doc>Prepares a new command batch in which subsequent commands will be captured and stored, and makes the batch current on the calling thread. This must not be called if there is already a batch current on this thread.</doc>
+    <!-- Render Batches -->
+    <function name="GAStart" extension="Core" vendor="ULTZ">
+      <doc>Starts recording drawing commands issued from this thread.</doc>
       <returns type="void" />
     </function>
-    <function name="GAFinishBatch" extension="Core" vendor="ULTZ">
-      <doc>Finishes the command batch, and adds it to the underlying API's queue. The thread will no longer have a current batch.</doc>
+    <function name="GAFinish" extension="Core" vendor="ULTZ">
+      <doc>Stops recording drawing commands, and stores them in an internal queue. The thread will no longer be recording commands.</doc>
       <returns type="void" />
     </function>
-    <function name="GADestroyBatch" extension="Core" vendor="ULTZ">
-      <doc>Destroys the current batch, including the commands captured within it. The thread will no longer have a current batch.</doc>
+    <function name="GADiscard" extension="Core" vendor="ULTZ">
+      <doc>Stops recording drawing command without storing them. The thread will no longer be recording commands.</doc>
       <returns type="void" />
     </function>
-    <function name="GAExecuteBatch" extension="Core" vendor="ULTZ">
-      <doc>Sends the given batch to the underlying API. This function is separate to GAFinishBatch to circumvent any thread restrictions the underlying API might have. For example, this function must only be called on the thread where the OpenGL context is current where the underlying API is OpenGL or OpenGL ES.</doc>
-      <param name="batch" type="GAUInt32" />
+    <function name="GARender" extension="Core" vendor="ULTZ">
+      <doc>Sends all pending render commands to the underlying API. This function is separate to GAFinish to circumvent any thread restrictions the underlying API might have. For example, this function must only be called on the thread where the OpenGL context is current where the underlying API is OpenGL or OpenGL ES.</doc>
       <returns type="void" />
     </function>
 
@@ -522,19 +524,22 @@
         <token name="GA_INT16_U" value="0x0000" />
         <token name="GA_INT32_U" value="0x0001" />
     </enum>
-    <function name="GABindVertexBuffer">
+    <function name="GABindVertexBuffer" extension="Core" vendor="ULTZ">
+      <!-- requires a batch -->
       <param name="slot" type="GAUInt32" />
       <param name="buffer" type="GAUInt32" />
       <param name="bufferOffset" type="GAUInt32" />
       <returns type="void" />
     </function>
-    <function name="GABindIndexBuffer">
+    <function name="GABindIndexBuffer" extension="Core" vendor="ULTZ">
+      <!-- requires a batch -->
       <param name="buffer" type="GAUInt32" />
       <param name="format" type="IndexFormat" />
       <param name="bufferOffset" type="GAUInt32" />
       <returns type="void" />
     </function>
-    <function name="GABindResourceSet">
+    <function name="GABindResourceSet" extension="Core" vendor="ULTZ">
+      <!-- requires a batch -->
       <param name="slot" type="GAUInt32" />
       <param name="set" type="GAUInt32" />
       <param name="dynamicOffsetCount" type="GAUInt32" />
@@ -543,7 +548,8 @@
     </function>
 
     <!-- Drawing -->
-    <function name="GADraw">
+    <function name="GADraw" extension="Core" vendor="ULTZ">
+      <!-- requires a batch -->
       <!-- requires bound vertex buffer(s) -->
       <param name="vertexIndex" type="GAUInt32" />
       <param name="vertexCount" type="GAUInt32" />
@@ -551,7 +557,8 @@
       <param name="instanceCount" type="GAUInt32" />
       <returns type="void" />
     </function>
-    <function name="GADrawIndexed">
+    <function name="GADrawIndexed" extension="Core" vendor="ULTZ">
+      <!-- requires a batch -->
       <!-- requires bound vertex buffer(s) and bound index buffer(s) -->
       <param name="indexOffset" type="GAUInt32" />
       <param name="indexCount" type="GAUInt32" />
